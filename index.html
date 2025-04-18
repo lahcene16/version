@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نموذج طلب منتج</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      direction: rtl;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, #ffe8f3 0%, transparent 40%),
+                  radial-gradient(circle at bottom left, #fff0f7 0%, transparent 40%);
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 700px;
+      margin: 40px auto;
+      background: linear-gradient(135deg, #fff, #fff7fb);
+      box-shadow: 0 10px 25px rgba(255, 0, 123, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 30px;
+      border: 2px dashed #ffc6dd;
+      transition: transform 0.3s ease;
+    }
+    .container:hover {
+      transform: scale(1.01);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+      text-align: center;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    h2::after {
+      content: "💗";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 24px;
+      animation: floatHeart 2s infinite ease-in-out;
+    }
+    @keyframes floatHeart {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    .option-group {
+      margin-bottom: 20px;
+    }
+    .option-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #444;
+    }
+    .option-group input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ffb6d2;
+      font-size: 16px;
+      background-color: #fffdfd;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .option-group input[type="text"]:focus {
+      border-color: #ff007b;
+      box-shadow: 0 0 6px rgba(255, 0, 123, 0.2);
+      outline: none;
+    }
+
+    .submit-button {
+      background-color: #ff007b;
+      color: white;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 20px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      box-shadow: 0 5px 10px rgba(255, 0, 123, 0.2);
+      transition: transform 0.3s ease;
+    }
+    .submit-button:hover {
+      background-color: #e60070;
+      transform: scale(1.03);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .price-box {
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .price-box p {
+      margin: 5px 0;
+      font-size: 16px;
+      color: #444;
+    }
+    .price-box strong {
+      font-size: 22px;
+      color: #d10000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="form-section">
+      <h2>معلومات التوصيل</h2>
+
+      <form id="orderForm">
+        <div class="option-group">
+          <label>الاسم واللقب</label>
+          <input type="text" name="fullname" required>
+        </div>
+
+        <div class="option-group">
+          <label>رقم الهاتف</label>
+          <input type="text" name="phone" required>
+        </div>
+
+        <div class="option-group">
+          <label>الولاية و العنوان</label>
+          <input type="text" name="state" required>
+        </div>
+
+        <div class="option-group">
+          <label>اختر الكمية</label>
+          <select name="quantity" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ffb6d2; font-size: 16px; background-color: #fffdfd;">
+            <option value="" disabled selected>اختر الكمية</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+
+        <button type="submit" class="submit-button">اطلب الآن</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('orderForm');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch('https://script.google.com/macros/s/AKfycbxU--6g1mckJT0n0-tfmD7zLtFlOF4t1pV8XTBQz-rnFlXAvV385Nqvr2AlmuyEAty9Jg/exec', {
+        method: 'POST',
+        body: formData
+      }).then(() => {
+        window.location.href = 'thank-you.html';
+      });
+    });
+  </script>
+
+</body>
+</html>
